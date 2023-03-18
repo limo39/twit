@@ -1,19 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-    <script>
-        const T = new Twit({
-            consumer_key: 'YOUR_CONSUMER_KEY',
-            consumer_secret: 'YOUR_CONSUMER_SECRET',
-            access_token: 'YOUR_ACCESS_TOKEN',
-            access_token_secret: 'YOUR_ACCESS_TOKEN_SECRET'
+// Replace the placeholders below with your own Twitter API keys and secrets
+const CONSUMER_KEY = "YOUR_CONSUMER_KEY";
+const CONSUMER_SECRET = "YOUR_CONSUMER_SECRET";
+const ACCESS_TOKEN = "YOUR_ACCESS_TOKEN";
+const ACCESS_SECRET = "YOUR_ACCESS_SECRET";
+
+// Authenticate with the Twitter API using your keys and secrets
+const Twit = require("twit");
+const T = new Twit({
+  consumer_key: CONSUMER_KEY,
+  consumer_secret: CONSUMER_SECRET,
+  access_token: ACCESS_TOKEN,
+  access_token_secret: ACCESS_SECRET,
 });
 
-        T.post('statuses/update', { status: 'Your tweet here' }, function(err, data, response) {
-            console.log(data);
-        });
-    </script>
-</body>
-</html>
+// Prompt the user to enter a tweet
+const prompt = require("prompt-sync")();
+const tweet = prompt("What would you like to tweet? ");
+
+// Post the tweet to Twitter
+T.post("statuses/update", { status: tweet }, (err, data, response) => {
+  if (err) {
+    console.log("Error posting tweet:", err);
+  } else {
+    console.log("Tweet posted successfully!");
+  }
+});
+
